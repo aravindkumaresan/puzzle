@@ -14,4 +14,8 @@ public class Paper implements Gesture {
 		else
 			return TIE;
 	}
+
+	public String toString() {
+		return "Paper";
+	}
 }

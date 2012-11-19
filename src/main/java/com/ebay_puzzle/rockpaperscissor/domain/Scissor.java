@@ -14,4 +14,8 @@ public class Scissor implements Gesture {
 		else
 			return TIE;
 	}
+	
+	public String toString() {
+		return "Scissor";
+	}
 }

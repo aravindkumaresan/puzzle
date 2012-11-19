@@ -1,24 +1,17 @@
 package com.ebay_puzzle.rockpaperscissor.domain;
 
-import static com.ebay_puzzle.rockpaperscissor.domain.Result.EQUAL;
-import static com.ebay_puzzle.rockpaperscissor.domain.Result.GREATER;
-import static com.ebay_puzzle.rockpaperscissor.domain.Result.LESSER;
+import static com.ebay_puzzle.rockpaperscissor.domain.Result.WIN;
+import static com.ebay_puzzle.rockpaperscissor.domain.Result.LOSE;
+import static com.ebay_puzzle.rockpaperscissor.domain.Result.TIE;
 
-public class Scissor implements Combination {
+public class Scissor implements Gesture {
 
-	public Result beats(Combination c) {
-
+	public Result defeats(Gesture c) {
 		if (c instanceof Rock)
-
-			return LESSER;
-
+			return LOSE;
 		else if (c instanceof Paper)
-
-			return GREATER;
-
+			return WIN;
 		else
-			return EQUAL;
-
+			return TIE;
 	}
-
 }

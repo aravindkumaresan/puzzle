@@ -51,8 +51,12 @@ public class RockPaperScissor {
 		if (game.isTie()) {
 			System.out.println("Game has tied");
 		} else {
-			System.out.println(game.getWinner() + " has won");
+			System.out.println(getWinner(game) + " has won");
 		}
+	}
+
+	private Player getWinner(Game game) {
+		return game.getWinner() == com.ebay_puzzle.rockpaperscissor.domain.Player.PLAYER1 ? player1 : player2;
 	}
 
 	private void printGesturesChosen() {
@@ -71,8 +75,8 @@ public class RockPaperScissor {
 			this.player1 = new Human(gestures);
 			this.player2 = new Computer(gestures);
 		} else {
-			this.player1 = new Computer(gestures);
-			this.player2 = new Computer(gestures);
+			this.player1 = new Computer(gestures, "Computer 1");
+			this.player2 = new Computer(gestures, "Computer 2");
 		}
 	}
 

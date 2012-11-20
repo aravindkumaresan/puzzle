@@ -2,6 +2,7 @@ package com.ebay_puzzle.rockpaperscissor.ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
@@ -9,9 +10,17 @@ import com.ebay_puzzle.rockpaperscissor.domain.Gesture;
 
 public class Human extends Player {
 	private final List<Gesture> gestures;
+	private final BufferedReader reader;
 
 	public Human(List<Gesture> gestures) {
 		this.gestures = gestures;
+		this.reader =  new BufferedReader(new InputStreamReader(System.in));
+	}
+	
+	// for testing
+	Human(List<Gesture> gestures, InputStream inputStream){
+		this.gestures = gestures;
+		this.reader = new BufferedReader(new InputStreamReader(inputStream));
 	}
 	
 	public String toString(){
@@ -20,10 +29,9 @@ public class Human extends Player {
 
 	public Gesture _throw() {
 		while (true) {
-			BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				printGestures();
-				String sGesture = bis.readLine();
+				String sGesture = reader.readLine();
 				Gesture matchedGesture = null;
 				for (Gesture gesture : gestures) {
 					if (sGesture.equalsIgnoreCase(gesture.toString())) {
@@ -33,7 +41,6 @@ public class Human extends Player {
 				if (matchedGesture != null)
 					return matchedGesture;
 			} catch (IOException e) {
-				e.printStackTrace();
 			}
 		}
 	}

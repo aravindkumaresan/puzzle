@@ -11,21 +11,14 @@ public class Game {
 
 	private List<Gesture> gestures = new ArrayList<Gesture>();
 
-	private Gesture player1Gesture;     
+	private Gesture player1Gesture;
 
 	private Gesture player2Gesture;
 
 	public Game() {
-		gestures.add(new Rock());
-		gestures.add(new Paper());
-		gestures.add(new Scissor());
-	}
-
-	public void _throw() {
-		Rock gesture1 = new Rock();
-		Paper gesture2 = new Paper();
-		gesture1.defeats(gesture2);
-		
+		gestures.add(Gesture.Rock);
+		gestures.add(Gesture.Paper);
+		gestures.add(Gesture.Scissor);
 	}
 
 	public void player1Gesture(Gesture gesture) {
@@ -37,20 +30,15 @@ public class Game {
 	}
 
 	public Player getWinner() {
-
 		Result result = this.player1Gesture.defeats(this.player2Gesture);
-
 		if (result == WIN)
 			return PLAYER1;
 		else
 			return PLAYER2;
-
 	}
 
 	public boolean isTie() {
-
 		return (this.player1Gesture.defeats(this.player2Gesture) == Result.TIE);
-
 	}
 
 	public List<Gesture> getGestures() {

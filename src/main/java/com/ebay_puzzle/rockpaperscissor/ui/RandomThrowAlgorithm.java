@@ -15,7 +15,7 @@ public class RandomThrowAlgorithm implements ThrowAlgorithm {
 	}
 
 	public Gesture _throw() {
-		List<Gesture> gestures = new ArrayList(this.gestures);
+		List<Gesture> gestures = new ArrayList<Gesture>(this.gestures);
 		shuffle(gestures);
 		return gestures.get(0);
 	}

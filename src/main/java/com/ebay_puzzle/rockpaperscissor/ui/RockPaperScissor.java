@@ -1,6 +1,6 @@
 package com.ebay_puzzle.rockpaperscissor.ui;
 
-import static java.lang.Integer.valueOf;
+import static com.ebay_puzzle.rockpaperscissor.ui.RockPaperScissor.GameMode.HUMAN_COMPUTER;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,25 +12,40 @@ import com.ebay_puzzle.rockpaperscissor.domain.Gesture;
 
 public class RockPaperScissor {
 
-	private int option;
+	enum GameMode {
+		HUMAN_COMPUTER, COMPUTER_COMPUTER
+	}
+
 	private Player player1;
 	private Player player2;
 	private Gesture player1Gesture;
 	private Gesture player2Gesture;
+	private GameMode mode = HUMAN_COMPUTER;
 
 	public static void main(String[] args) throws IOException {
 		new RockPaperScissor().game();
 	}
 
 	private void game() throws IOException {
-		printMenu();
-		option = readMenuOption();
-		printChosenOption();
+		while (true) {
+			printMenu();
+			readOption();
+			changeMode();
+		}
+	}
 
+	private void changeMode() {
+		if (mode == HUMAN_COMPUTER) {
+			mode = GameMode.COMPUTER_COMPUTER;
+		} else {
+			mode = HUMAN_COMPUTER;
+		}
+	}
+
+	private void play() {
 		Game game = new Game();
-		createPlayers(option, game.getGestures());
+		createPlayers(game.getGestures());
 		_throw();
-		printGesturesChosen();
 		game.player1Gesture(player1Gesture);
 		game.player2Gesture(player2Gesture);
 		if (game.isTie()) {
@@ -41,21 +56,18 @@ public class RockPaperScissor {
 	}
 
 	private void printGesturesChosen() {
-		System.out.println(player1.getName() + " has chosen " + this.player1Gesture);
-		System.out.println(player2.getName() + " has chosen " + this.player2Gesture);
-	}
-
-	private void printChosenOption() {
-		System.out.println("chosen option: " + option);
+		System.out.println(player1 + " has chosen " + this.player1Gesture);
+		System.out.println(player2 + " has chosen " + this.player2Gesture);
 	}
 
 	private void _throw() {
 		this.player1Gesture = player1._throw();
 		this.player2Gesture = player2._throw();
+		printGesturesChosen();
 	}
 
-	private void createPlayers(int option, List<Gesture> gestures) {
-		if (option == 1) {
+	private void createPlayers(List<Gesture> gestures) {
+		if (mode == GameMode.HUMAN_COMPUTER) {
 			this.player1 = new Human(gestures);
 			this.player2 = new Computer(gestures);
 		} else {
@@ -64,17 +76,16 @@ public class RockPaperScissor {
 		}
 	}
 
-	private int readMenuOption() throws IOException {
+	private void readOption() throws IOException {
 		BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
 		String option = bis.readLine();
-		return valueOf(option);
+		if (option.toLowerCase().startsWith("n")) {
+			System.exit(0);
+		}
+		play();
 	}
 
 	private void printMenu() {
-		System.out.println("1. Human vs Computer");
-		System.out.println("2. Computer vs Computer");
-		System.out.println("3. Different game each time");
-		System.out.println("4. Exit");
-		System.out.println("Enter your option:");
+		System.out.println("Continuing mode, " + mode + " . Do you want to continue playing (y/n) ? ");
 	}
 }

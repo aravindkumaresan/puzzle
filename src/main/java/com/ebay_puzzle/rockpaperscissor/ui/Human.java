@@ -14,7 +14,7 @@ public class Human extends Player {
 		this.gestures = gestures;
 	}
 	
-	public String getName(){
+	public String toString(){
 		return "Human";
 	}
 

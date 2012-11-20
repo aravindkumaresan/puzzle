@@ -15,7 +15,7 @@ public class Computer extends Player {
 		this.throwAlgorithm = new RandomThrowAlgorithm(gestures);
 	}
 
-	public String getName(){
+	public String toString(){
 		return "Computer";
 	}
 	
